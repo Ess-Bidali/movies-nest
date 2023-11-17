@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MoviesStore } from './movies.store';
-import { testData } from './test';
 import { from, map, tap } from 'rxjs';
 import { environment } from 'environment';
-import { Movie, MovieEndpointResponse, MovieQueryParams } from './movie.model';
+import { MovieEndpointResponse, MovieQueryParams } from './movie.model';
 
 @Injectable({ providedIn: 'root' })
 export class MoviesService {
@@ -17,7 +16,7 @@ export class MoviesService {
   }
 
   get() {
-    this.store.set(testData);
+    // this.store.set(testData);
   }
 
   movePageBy(numOfPages: number) {
