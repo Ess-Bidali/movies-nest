@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { catchError, of, take } from 'rxjs';
 import { Movie } from 'src/app/state/movies/movie.model';
 import { MoviesQuery } from 'src/app/state/movies/movies.query';
 
@@ -8,7 +10,12 @@ import { MoviesQuery } from 'src/app/state/movies/movies.query';
   styleUrls: ['./movie-list.component.scss']
 })
 export class MovieListComponent {
-  constructor(public moviesQuery: MoviesQuery) {
+  @Output() loadNext = new EventEmitter();
+
+
+  constructor(
+    public moviesQuery: MoviesQuery
+  ) {
   }
 
   trackMovieRefrence(index: number, movie: Movie) {

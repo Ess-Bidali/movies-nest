@@ -26,14 +26,11 @@ export class MoviesPageComponent implements OnInit {
 
   applyFilter(searchTerm: string | null | undefined) {
     if(searchTerm && searchTerm?.trim()?.length) {
-      this.moviesService.applyFilter(searchTerm)
+      this.moviesService.applySearchTermFilter(searchTerm)
         .pipe(
           take(1),
           catchError((err) => {
-            this._snackBar.open('ERROR: ' + err.message, 'Close', {
-              verticalPosition: 'top',
-              duration: 2000
-            });
+            this.showErrorMessage(err);
 
             return of([]);
           })
@@ -42,5 +39,23 @@ export class MoviesPageComponent implements OnInit {
     } else {
       this.moviesService.resetStore();
     }
+  }
+
+  movePageBy(numOfPages: number) {
+    this.moviesService.movePageBy(numOfPages).pipe(
+      take(1),
+      catchError((err) => {
+        this.showErrorMessage(err);
+        return of([]);
+      })
+    )
+    .subscribe();
+  }
+
+  showErrorMessage(err: Error) {
+    this._snackBar.open('ERROR: ' + err.message, 'Close', {
+      verticalPosition: 'top',
+      duration: 3000
+    });
   }
 }

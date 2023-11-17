@@ -1,6 +1,21 @@
-<ng-container *ngIf="(moviesQuery.selectLoading() | async) === false; else loading">
+<ng-container>
   <ng-container *ngIf="moviesQuery.selectAll() | async as moviesFetched">
+    <div class="grey-txt current-count" *ngIf="moviesQuery.selectCount() | async">
+      Showing {{ moviesQuery.selectCount() | async }} of {{ moviesQuery.totalRecordsCount() | async }}
+    </div>
+
     <div *ngIf="moviesFetched?.length; else errorBlock" class="movies-list">
+
+      <!-- Previous Page Button -->
+      <!-- <div class="movie-card" *ngIf="!moviesQuery.isFirstPage() | async" (click)="movePageBy(-1)">
+        <div class="button-card">
+          <h3 class="movie-title">PREVIOUS PAGE</h3>
+          <div class="grey-txt">
+          </div>
+        </div>
+      </div> -->
+
+      <!-- List items -->
       <div *ngFor="let movie of moviesFetched; trackBy: trackMovieRefrence"
           class="movie-card">
         <img class="movie-poster" [src]="movie?.Poster" onerror="this.src = 'assets/images/placeholder.jpeg'"/>
@@ -12,27 +27,37 @@
           </div>
         </div>
       </div>
+
+      <!-- Next Page Button -->
+      <div class="movie-card" *ngIf="!(moviesQuery.lastPageReached() | async)" (click)="loadNext.emit()">
+        <div class="button-card">
+          <h3 class="movie-title purple-text">NEXT PAGE</h3>
+          <div class="grey-txt" *ngIf="moviesQuery.selectCount() | async">
+            Now showing {{ moviesQuery.selectCount() | async }} out of {{ moviesQuery.totalRecordsCount() | async }} results
+          </div>
+        </div>
+      </div>
     </div>
   </ng-container>
 
   <ng-template #errorBlock>
-    <div class="loading-sect" *ngIf="(moviesQuery.selectError() | async) as error; else noRecords">
+    <div class="list-info-sect" *ngIf="(moviesQuery.selectError() | async) as error; else noRecords">
       <mat-icon class="error-icon">warning</mat-icon>
       <h2 class="subtitle-data">{{ error.message }}</h2>
     </div>
   </ng-template>
 
   <ng-template #noRecords>
-    <div class="loading-sect">
+    <div class="list-info-sect">
       <mat-icon class="error-icon">warning</mat-icon>
       <h2 class="subtitle-data">No records were found matching the specified filter!</h2>
     </div>
   </ng-template>
 </ng-container>
 
-<ng-template #loading>
+<ng-template *ngIf="(moviesQuery.selectLoading() | async)">
   <div class="loading-sect">
-    <mat-spinner [diameter]="50"></mat-spinner>
+    <mat-spinner [diameter]="30"></mat-spinner>
     <h2 class="subtitle-data">Fetching your data...</h2>
   </div>
 </ng-template>
