@@ -20,11 +20,11 @@ export class MoviesPageComponent implements OnInit {
   ngOnInit() {
     this.moviesService.get();
     this.searchControl?.valueChanges.pipe(
-      debounceTime(500)
+      debounceTime(800)
     ).subscribe((searchTerm) => this.applyFilter(searchTerm));
   }
 
-  applyFilter(searchTerm: string | null) {
+  applyFilter(searchTerm: string | null | undefined) {
     if(searchTerm && searchTerm?.trim()?.length) {
       this.moviesService.applyFilter(searchTerm)
         .pipe(
@@ -32,13 +32,15 @@ export class MoviesPageComponent implements OnInit {
           catchError((err) => {
             this._snackBar.open('ERROR: ' + err.message, 'Close', {
               verticalPosition: 'top',
+              duration: 2000
             });
 
             return of([]);
           })
         )
         .subscribe();
+    } else {
+      this.moviesService.resetStore();
     }
-
   }
 }
