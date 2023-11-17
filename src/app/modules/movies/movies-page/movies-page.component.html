@@ -4,7 +4,8 @@
     <mat-form-field class="full-width compact-field">
       <mat-icon matPrefix>search</mat-icon>
       <mat-label>Enter a movie title here</mat-label>
-      <input matInput [formControl]="searchControl" placeholder="ex. Avengers"/>
+      <input matInput #searchInput [formControl]="searchControl" placeholder="ex. Avengers"
+        (keydown.enter)="applyFilter(searchInput?.value)"/>
     </mat-form-field>
   </form>
 </mat-toolbar>

@@ -6,12 +6,27 @@
   padding: 20px 0;
 }
 
+.loading-sect {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 80vh;
+  place-content: center;
+}
+
+.error-icon {
+  color: red;
+}
+
 .movie-card {
   border: 1px solid lightgray;
   border-radius: 8px;
   width: 300px;
   margin: 10px;
-  background-color: white;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
 
   &:hover {
     cursor: pointer;
@@ -21,6 +36,13 @@
 
 .movie-card-desc {
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  place-content: space-between;
+}
+
+.movie-extra-details {
   display: flex;
   flex-direction: column;
 }

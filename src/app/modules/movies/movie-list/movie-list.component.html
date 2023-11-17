@@ -1,11 +1,38 @@
-<div *ngIf="moviesQuery.selectAll() | async as moviesFetched" class="movies-list">
-  <div *ngFor="let movie of moviesFetched; trackBy: trackMovieRefrence"
-      class="movie-card">
-    <img class="movie-poster" [src]="movie?.Poster"/>
-    <div class="movie-card-desc">
-      <h3 class="movie-title">{{ movie?.Title }}</h3>
-      <span class="subtitle-data">{{ movie?.Year }}</span>
-      <span class="subtitle-data">{{ movie?.Type }}</span>
+<ng-container *ngIf="(moviesQuery.selectLoading() | async) === false; else loading">
+  <ng-container *ngIf="moviesQuery.selectAll() | async as moviesFetched">
+    <div *ngIf="moviesFetched?.length; else errorBlock" class="movies-list">
+      <div *ngFor="let movie of moviesFetched; trackBy: trackMovieRefrence"
+          class="movie-card">
+        <img class="movie-poster" [src]="movie?.Poster" onerror="this.src = 'assets/images/placeholder.jpeg'"/>
+        <div class="movie-card-desc">
+          <h3 class="movie-title">{{ movie?.Title }}</h3>
+          <div class="movie-extra-details">
+            <span class="subtitle-data">{{ movie?.Year }}</span>
+            <span class="subtitle-data">{{ movie?.Type }}</span>
+          </div>
+        </div>
+      </div>
     </div>
+  </ng-container>
+
+  <ng-template #errorBlock>
+    <div class="loading-sect" *ngIf="(moviesQuery.selectError() | async) as error; else noRecords">
+      <mat-icon class="error-icon">warning</mat-icon>
+      <h2 class="subtitle-data">{{ error.message }}</h2>
+    </div>
+  </ng-template>
+
+  <ng-template #noRecords>
+    <div class="loading-sect">
+      <mat-icon class="error-icon">warning</mat-icon>
+      <h2 class="subtitle-data">No records were found matching the specified filter!</h2>
+    </div>
+  </ng-template>
+</ng-container>
+
+<ng-template #loading>
+  <div class="loading-sect">
+    <mat-spinner [diameter]="50"></mat-spinner>
+    <h2 class="subtitle-data">Fetching your data...</h2>
   </div>
-</div>
+</ng-template>
