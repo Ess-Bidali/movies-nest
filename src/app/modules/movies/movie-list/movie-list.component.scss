@@ -1,0 +1,39 @@
+.movies-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  place-content: center;
+  padding: 20px 0;
+}
+
+.movie-card {
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  width: 300px;
+  margin: 10px;
+  background-color: white;
+
+  &:hover {
+    cursor: pointer;
+    background-color: lightblue;
+  }
+}
+
+.movie-card-desc {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+img.movie-poster {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.subtitle-data {
+  color: grey;
+}

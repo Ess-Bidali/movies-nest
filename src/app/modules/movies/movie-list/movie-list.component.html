@@ -1,1 +1,11 @@
-<p>movie-list works!</p>
+<div *ngIf="moviesQuery.selectAll() | async as moviesFetched" class="movies-list">
+  <div *ngFor="let movie of moviesFetched; trackBy: trackMovieRefrence"
+      class="movie-card">
+    <img class="movie-poster" [src]="movie?.Poster"/>
+    <div class="movie-card-desc">
+      <h3 class="movie-title">{{ movie?.Title }}</h3>
+      <span class="subtitle-data">{{ movie?.Year }}</span>
+      <span class="subtitle-data">{{ movie?.Type }}</span>
+    </div>
+  </div>
+</div>
