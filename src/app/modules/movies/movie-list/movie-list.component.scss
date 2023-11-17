@@ -35,8 +35,8 @@
   place-content: center;
 }
 
-.purple-text {
-  color: purple;
+.white-text {
+  color: white;
 }
 
 .error-icon {
@@ -46,21 +46,22 @@
 .movie-card {
   border: 1px solid lightgray;
   border-radius: 8px;
-  width: 300px;
+  width: 280px;
   margin: 10px;
-  background-color: #f4f4f4;
+  background-color: black;
+  color: wheat;
   display: flex;
   flex-direction: column;
 
   &:hover {
     cursor: pointer;
-    background-color: lightblue;
+    background-color: #414040;
   }
 }
 
 img.movie-poster {
   width: 100%;
-  height: 250px;
+  height: 260px;
   object-fit: cover;
   border-radius: 10px;
   border-bottom-left-radius: 0;

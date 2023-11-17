@@ -1,7 +1,7 @@
 <ng-container>
   <ng-container *ngIf="moviesQuery.selectAll() | async as moviesFetched">
     <div class="grey-txt current-count" *ngIf="moviesQuery.selectCount() | async">
-      Showing {{ moviesQuery.selectCount() | async }} of {{ moviesQuery.totalRecordsCount() | async }}
+      Showing 1 - {{ moviesQuery.selectCount() | async }} of {{ moviesQuery.totalRecordsCount() | async }}
     </div>
 
     <div *ngIf="moviesFetched?.length; else errorBlock" class="movies-list">
@@ -29,9 +29,9 @@
       </div>
 
       <!-- Next Page Button -->
-      <div class="movie-card" *ngIf="!(moviesQuery.lastPageReached() | async)" (click)="loadNext.emit()">
+      <div class="movie-card " *ngIf="!(moviesQuery.lastPageReached() | async)" (click)="loadNext.emit()">
         <div class="button-card">
-          <h3 class="movie-title purple-text">NEXT PAGE</h3>
+          <h3 class="movie-title white-txt">NEXT PAGE</h3>
           <div class="grey-txt" *ngIf="moviesQuery.selectCount() | async">
             Now showing {{ moviesQuery.selectCount() | async }} out of {{ moviesQuery.totalRecordsCount() | async }} results
           </div>
