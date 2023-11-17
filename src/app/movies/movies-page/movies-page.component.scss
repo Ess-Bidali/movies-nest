@@ -1,0 +1,16 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.search-field {
+  margin-left: 20px;
+  flex-grow: 1;
+
+  .compact-field {
+    margin-bottom: -25px;
+  }
+}
+
+.full-width {
+  min-width: 100%;
+}
