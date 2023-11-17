@@ -1,7 +1,7 @@
 <mat-toolbar>
   <img class="logo" src="assets/images/nest_logo.jpg" alt="Movies Nest"/>
   <div class="search-field">
-    <mat-form-field class="full-width compact-field">
+    <mat-form-field class="full-width compact-field" appearance="outline">
       <mat-icon matPrefix>search</mat-icon>
       <mat-label>Enter a movie title here</mat-label>
       <input matInput #searchInput [formControl]="searchControl" placeholder="ex. Avengers"
@@ -10,5 +10,15 @@
   </div>
 </mat-toolbar>
 
-<app-movie-list (loadNext)="movePageBy(1)">
-</app-movie-list>
+<div *ngIf="!searchInput?.value && !(moviesQuery.selectCount() | async); else data">
+  <div class="welcome-sect">
+    <img class="logo-large" src="assets/images/nest_logo.jpg" alt="Movies Nest"/>
+    <h2>Welcome to Movies Nest</h2>
+    <h3 class="subtitle-data">Enter a filter above to get started</h3>
+  </div>
+</div>
+
+<ng-template #data>
+  <app-movie-list (loadNext)="movePageBy(1)">
+  </app-movie-list>
+</ng-template>

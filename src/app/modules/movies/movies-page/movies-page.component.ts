@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, debounceTime, of, take } from 'rxjs';
+import { MoviesQuery } from 'src/app/state/movies/movies.query';
 import { MoviesService } from 'src/app/state/movies/movies.service';
 
 @Component({
@@ -12,7 +13,9 @@ import { MoviesService } from 'src/app/state/movies/movies.service';
 export class MoviesPageComponent implements OnInit {
   searchControl = new FormControl<string>('');
 
-  constructor(private moviesService: MoviesService,
+  constructor(
+    public moviesQuery: MoviesQuery,
+    private moviesService: MoviesService,
     private _snackBar: MatSnackBar) {
 
   }
