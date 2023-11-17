@@ -4,12 +4,16 @@ import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 const components = [
   CommonModule,
   MatInputModule,
   MatToolbarModule,
-  MatIconModule
+  MatIconModule,
+  MatSnackBarModule,
+  MatProgressSpinnerModule
 ];
 
 
