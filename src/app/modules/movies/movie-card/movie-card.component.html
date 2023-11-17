@@ -1,1 +1,10 @@
-<p>movie-card works!</p>
+<div class="movie-card">
+  <img class="movie-poster" [src]="movie?.Poster" onerror="this.src = 'assets/images/placeholder.jpeg'"/>
+  <div class="movie-card-desc">
+    <h3 class="movie-title">{{ movie?.Title }}</h3>
+    <div class="movie-extra-details">
+      <span class="subtitle-data">{{ movie?.Year }}</span>
+      <span class="subtitle-data">{{ movie?.Type }}</span>
+    </div>
+  </div>
+</div>
