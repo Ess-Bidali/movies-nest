@@ -1,13 +1,35 @@
 <mat-toolbar>
   <img class="logo" src="assets/images/nest_logo.jpg" alt="Movies Nest"/>
-  <div class="search-field">
-    <mat-form-field class="full-width compact-field" appearance="outline">
-      <mat-icon matPrefix>search</mat-icon>
-      <mat-label>Enter a movie title here</mat-label>
-      <input matInput #searchInput [formControl]="searchControl" placeholder="ex. Avengers"
-        (keydown.enter)="applyFilter(searchInput?.value)"/>
-    </mat-form-field>
-  </div>
+  <span class="spacer"></span>
+  <form class="search-form" [formGroup]="filtersForm" (submit)="applyFilter();">
+    <div class="filter-fields">
+      <mat-form-field class="compact-field" appearance="outline">
+        <mat-icon matPrefix>short_text</mat-icon>
+        <mat-label>Title</mat-label>
+        <input matInput #searchInput placeholder="ex. Avengers" formControlName="title"/>
+      </mat-form-field>
+
+      <mat-form-field class="compact-field" appearance="outline">
+        <mat-icon matPrefix>group_work</mat-icon>
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="type">
+          <mat-option [value]="null">All</mat-option>
+          <mat-option value="movies">Movies</mat-option>
+          <mat-option value="series">Series</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="compact-field" appearance="outline">
+        <mat-icon matPrefix>calendar_month</mat-icon>
+        <mat-label>Year</mat-label>
+        <input matInput type="number" min="1900" max="2099" step="1">
+      </mat-form-field>
+    </div>
+
+    <button mat-icon-button type="submit" class="search-btn">
+      <mat-icon>search</mat-icon>
+    </button>
+  </form>
 </mat-toolbar>
 
 <div *ngIf="!searchInput?.value && !(moviesQuery.selectCount() | async); else data">

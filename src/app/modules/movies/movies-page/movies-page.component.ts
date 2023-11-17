@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatDatepicker } from '@angular/material/datepicker';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError, debounceTime, of, take } from 'rxjs';
+import { catchError, of, take } from 'rxjs';
 import { MoviesQuery } from 'src/app/state/movies/movies.query';
 import { MoviesService } from 'src/app/state/movies/movies.service';
 
@@ -10,24 +11,28 @@ import { MoviesService } from 'src/app/state/movies/movies.service';
   templateUrl: './movies-page.component.html',
   styleUrls: ['./movies-page.component.scss']
 })
-export class MoviesPageComponent implements OnInit {
+export class MoviesPageComponent {
   searchControl = new FormControl<string>('');
+  filtersForm: FormGroup;
 
   constructor(
     public moviesQuery: MoviesQuery,
     private moviesService: MoviesService,
-    private _snackBar: MatSnackBar) {
-
+    private _snackBar: MatSnackBar,
+    private formBuilder: FormBuilder
+  ) {
+    this.filtersForm = formBuilder.group({
+      title: '',
+      type: '',
+      year: ''
+    });
   }
 
-  ngOnInit() {
-    this.moviesService.get();
-    this.searchControl?.valueChanges.pipe(
-      debounceTime(800)
-    ).subscribe((searchTerm) => this.applyFilter(searchTerm));
-  }
+  applyFilter() {
+    const { title, type, year } = this.filtersForm.value();
+    const searchTerm = title || type || year;
 
-  applyFilter(searchTerm: string | null | undefined) {
+    // At least one has to have a value
     if(searchTerm && searchTerm?.trim()?.length) {
       this.moviesService.applySearchTermFilter(searchTerm)
         .pipe(
@@ -53,6 +58,13 @@ export class MoviesPageComponent implements OnInit {
       })
     )
     .subscribe();
+  }
+
+  setYear(value: any, datepicker: MatDatepicker<any>) {
+    // ctrlValue.year(normalizedMonthAndYear.year());
+    // this.date.setValue(ctrlValue);
+    console.log(value)
+    datepicker.close();
   }
 
   showErrorMessage(err: Error) {

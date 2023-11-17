@@ -8,12 +8,16 @@
   flex: 1 1 auto;
 }
 
-.search-field {
+.search-form {
   margin-left: 20px;
   flex-grow: 1;
+  flex-direction: row;
+  display: flex;
+  column-gap: 10px;
 
   .compact-field {
     margin-bottom: -25px;
+    margin-right: 10px;
   }
 }
 
