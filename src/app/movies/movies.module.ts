@@ -5,18 +5,22 @@ import { MaterialComponentsModule } from '../material-components/material-compon
 
 import { MoviesPageComponent } from './movies-page/movies-page.component';
 import { MoviesRoutingModule } from './movies-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MovieListComponent } from './movie-list/movie-list.component';
 
 
 
 
 @NgModule({
   declarations: [
-    MoviesPageComponent
+    MoviesPageComponent,
+    MovieListComponent
   ],
   imports: [
     MoviesRoutingModule,
     CommonModule,
-    MaterialComponentsModule
+    MaterialComponentsModule,
+    ReactiveFormsModule
   ]
 })
 export class MoviesModule { }
