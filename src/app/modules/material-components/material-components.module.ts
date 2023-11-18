@@ -11,6 +11,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
 
 const components = [
   CommonModule,
@@ -23,7 +25,8 @@ const components = [
   MatNativeDateModule,
   MatSelectModule,
   MatButtonModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatSidenavModule
 ];
 
 

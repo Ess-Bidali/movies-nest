@@ -12,7 +12,7 @@ import { MoviesQuery } from 'src/app/state/movies/movies.query';
 })
 export class MovieListComponent {
   @Output() loadNext = new EventEmitter();
-
+  @Output() openSingle = new EventEmitter<string>();
 
   constructor(
     public moviesQuery: MoviesQuery,

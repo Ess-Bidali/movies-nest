@@ -1,0 +1,45 @@
+<div class="movie-details-container">
+  <ng-container>
+    <div class="movie-details">
+      <img class="movie-poster" [src]="movie?.Poster" onerror="this.src = 'assets/images/placeholder.jpeg'"/>
+      <div class="movie-card-desc">
+        <h1 class="movie-title">{{ movie?.Title }}</h1>
+        <h3 class="movie-title pg-text">{{ movie?.Rated }}</h3>
+
+        <div class="detail-section">
+          <span class="section-title">Genre</span>
+          <h3 class="movie-title">{{ movie?.Genre }}</h3>
+        </div>
+
+        <div class="detail-section">
+          <span class="section-title">Actors</span>
+          <h3 class="movie-title">{{ movie?.Actors }}</h3>
+        </div>
+
+        <div class="detail-section">
+          <span class="section-title">Release data</span>
+          <span class="subtitle-data">{{ movie?.Released }}</span>
+        </div>
+
+        <div class="detail-section">
+          <span class="section-title">Category</span>
+          <span class="subtitle-data">{{ movie?.Type }}</span>
+        </div>
+      </div>
+    </div>
+
+    <span class="section-title">Plot</span>
+    <div class="summary">
+      {{ movie?.Plot }}
+    </div>
+
+    <div class="loading-sect" *ngIf="!movie?.Plot">
+      <mat-spinner [diameter]="30"></mat-spinner>
+      <h2 class="subtitle-data">Fetching your data...</h2>
+    </div>
+  </ng-container>
+
+  <ng-template>
+    <span> An error Occurred </span>
+  </ng-template>
+</div>

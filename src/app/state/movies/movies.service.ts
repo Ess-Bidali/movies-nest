@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MoviesStore } from './movies.store';
 import { from, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { MovieEndpointResponse, MovieQueryParams } from './movie.model';
+import { DetailedMovie, MovieEndpointResponse, MovieQueryParams } from './movie.model';
 
 @Injectable({ providedIn: 'root' })
 export class MoviesService {
@@ -14,6 +14,16 @@ export class MoviesService {
 
   constructor(protected store: MoviesStore) {
   }
+
+  toggleActive(movieId: string, setActive: boolean) {
+    if(setActive) {
+      this.store.setActive(movieId);
+      this._querySingle(movieId);
+    } else  {
+      this.store.setActive(null);
+    }
+  }
+
 
   movePageBy(numOfPages: number) {
     const nextPage = this.latestParams.page + numOfPages;
@@ -143,6 +153,20 @@ export class MoviesService {
 
     return fetch(this.baseUrl + '?' + queryParams)
       .then((val) => val.json())
+      .catch((err) => console.log('err', err));
+  }
+
+  private async _querySingle(movieId: string) {
+    const input = {
+      apiKey: environment.apiKey,
+      i: movieId
+    };
+
+    const queryParams = new URLSearchParams(input as any);
+
+    return fetch(this.baseUrl + '?' + queryParams)
+      .then((val) => val.json())
+      .then((val: DetailedMovie) => this.store.updateActive(val))
       .catch((err) => console.log('err', err));
   }
 }

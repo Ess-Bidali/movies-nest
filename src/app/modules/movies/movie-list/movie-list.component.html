@@ -1,4 +1,4 @@
-<ng-container>
+<div class="list-container">
   <ng-container *ngIf="moviesQuery.selectAll() | async as moviesFetched">
     <div class="grey-txt current-count" *ngIf="moviesQuery.selectCount() | async">
       Showing 1 - {{ moviesQuery.selectCount() | async }} of {{ moviesQuery.totalRecordsCount() | async }}
@@ -24,7 +24,7 @@
 
       <!-- List items -->
       <div *ngFor="let movie of moviesFetched; trackBy: trackMovieRefrence"
-          class="movie-card">
+          class="movie-card" (click)="openSingle.emit(movie.imdbID)">
         <img class="movie-poster" [src]="movie?.Poster" onerror="this.src = 'assets/images/placeholder.jpeg'"/>
         <div class="movie-card-desc">
           <h3 class="movie-title">{{ movie?.Title }}</h3>
@@ -60,7 +60,7 @@
       <h2 class="subtitle-data">No records were found matching the specified filter</h2>
     </div>
   </ng-template>
-</ng-container>
+</div>
 
 <ng-template *ngIf="(moviesQuery.selectLoading() | async)">
   <div class="loading-sect">

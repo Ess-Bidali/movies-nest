@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { MatSidenav } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription, catchError, debounceTime, of, take } from 'rxjs';
 import { MovieQueryParams } from 'src/app/state/movies/movie.model';
@@ -20,7 +21,7 @@ export class MoviesPageComponent {
 
   constructor(
     public moviesQuery: MoviesQuery,
-    private moviesService: MoviesService,
+    public moviesService: MoviesService,
     private _snackBar: MatSnackBar,
     private formBuilder: FormBuilder
   ) {
@@ -94,6 +95,11 @@ export class MoviesPageComponent {
       verticalPosition: 'top',
       duration: 3000
     });
+  }
+
+  viewSingleRecord(movieId: string, singleRecordPanel: MatSidenav) {
+    this.moviesService.toggleActive(movieId, true);
+    singleRecordPanel.open();
   }
 
   ngOnDestroy() {

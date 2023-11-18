@@ -7,6 +7,7 @@ import { MoviesPageComponent } from './movies-page/movies-page.component';
 import { MoviesRoutingModule } from './movies-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MovieListComponent } from './movie-list/movie-list.component';
+import { MovieDetailsComponent } from './movie-details/movie-details.component';
 
 
 
@@ -14,7 +15,8 @@ import { MovieListComponent } from './movie-list/movie-list.component';
 @NgModule({
   declarations: [
     MoviesPageComponent,
-    MovieListComponent
+    MovieListComponent,
+    MovieDetailsComponent
   ],
   imports: [
     MoviesRoutingModule,
