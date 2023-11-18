@@ -159,7 +159,8 @@ export class MoviesService {
   private async _querySingle(movieId: string) {
     const input = {
       apiKey: environment.apiKey,
-      i: movieId
+      i: movieId,
+      plot: 'full'
     };
 
     const queryParams = new URLSearchParams(input as any);
