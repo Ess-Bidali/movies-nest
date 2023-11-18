@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MoviesStore } from './movies.store';
 import { from, map, tap } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { environment } from 'src/environments/environment';
 import { MovieEndpointResponse, MovieQueryParams } from './movie.model';
 
 @Injectable({ providedIn: 'root' })
