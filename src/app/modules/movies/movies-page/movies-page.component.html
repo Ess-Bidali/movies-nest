@@ -41,6 +41,10 @@
         </button>
       </form>
 
+      <div class="grey-txt current-count" *ngIf="moviesQuery.selectCount() | async">
+        Showing 1 - {{ moviesQuery.selectCount() | async }} of {{ moviesQuery.totalRecordsCount() | async }}
+      </div>
+
       <div *ngIf="(!searchInput?.value || !firstQueryMade) && !(moviesQuery.selectCount() | async); else data">
         <div class="welcome-sect">
           <img class="logo-large" src="assets/images/nest_logo.jpg" alt="Movies Nest"/>

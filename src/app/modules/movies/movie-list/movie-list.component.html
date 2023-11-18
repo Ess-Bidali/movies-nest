@@ -1,9 +1,5 @@
 <div class="list-container">
   <ng-container *ngIf="moviesQuery.selectAll() | async as moviesFetched">
-    <div class="grey-txt current-count" *ngIf="moviesQuery.selectCount() | async">
-      Showing 1 - {{ moviesQuery.selectCount() | async }} of {{ moviesQuery.totalRecordsCount() | async }}
-    </div>
-
     <div *ngIf="moviesFetched?.length; else errorBlock" class="movies-list">
 
       <!-- Previous Page Button -->
@@ -25,7 +21,9 @@
       <!-- List items -->
       <div *ngFor="let movie of moviesFetched; trackBy: trackMovieRefrence"
           class="movie-card" (click)="openSingle.emit(movie.imdbID)">
-        <img class="movie-poster" [src]="movie?.Poster" onerror="this.src = 'assets/images/placeholder.jpeg'"/>
+        <img class="movie-poster"
+          [src]="movie?.Poster !== 'N/A' ? movie?.Poster : 'assets/images/placeholder.jpeg'"
+          onerror="this.src = 'assets/images/placeholder.jpeg'"/>
         <div class="movie-card-desc">
           <h3 class="movie-title">{{ movie?.Title }}</h3>
           <div class="movie-extra-details">
