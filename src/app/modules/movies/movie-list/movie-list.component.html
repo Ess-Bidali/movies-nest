@@ -12,7 +12,7 @@
       </div> -->
 
     <div *ngIf="moviesQuery.selectCount() | async as count" class="scroll-btn">
-      <button *ngIf="count > 10" mat-fab color="primary" matTooltip="Scroll to top"
+      <button *ngIf="count > 8" mat-fab color="primary" matTooltip="Scroll to top"
         (click)="viewportScroller.scrollToPosition([0, 0])">
         <mat-icon>arrow_drop_up</mat-icon>
       </button>
