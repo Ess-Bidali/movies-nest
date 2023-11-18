@@ -27,6 +27,10 @@ export class MovieDetailsComponent {
     this.subscriptions.add(activeSub);
   }
 
+  imageWidthIsSmall() {
+
+  }
+
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }

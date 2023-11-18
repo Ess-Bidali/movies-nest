@@ -13,8 +13,8 @@
 
   <ng-container>
     <div class="movie-details">
-      <img class="movie-poster" [src]="movie?.Poster" onerror="this.src = 'assets/images/placeholder.jpeg'"/>
-      <div class="movie-card-desc">
+      <img class="movie-poster" #poster [src]="movie?.Poster" onerror="this.src = 'assets/images/placeholder.jpeg'"/>
+      <div class="movie-card-desc" [class.restrict-width]="poster.offsetWidth <= 280">
         <h1 class="movie-title">{{ movie?.Title }}</h1>
         <h3 class="movie-title pg-text">{{ movie?.Rated }}</h3>
 

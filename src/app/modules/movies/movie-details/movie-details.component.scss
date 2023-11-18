@@ -4,6 +4,8 @@
   min-height: 100%;
   padding: 20px;
   background: black;
+  color: lightgray;
+  font-size: 15px;
 
   @media only screen and (max-width: 600px) {
     min-width: 100%;
@@ -43,10 +45,12 @@ img.movie-poster {
   display: flex;
   flex-direction: column;
   place-content: center;
-  max-width: 30%;
+  max-width: 90%;
 
-  @media only screen and (max-width: 600px) {
-    max-width: 90%;
+  @media only screen and (min-width: 1200px) {
+    &.restrict-width {
+      max-width: 45%;
+    }
   }
 }
 

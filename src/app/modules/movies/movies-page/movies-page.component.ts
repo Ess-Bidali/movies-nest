@@ -46,7 +46,7 @@ export class MoviesPageComponent {
     // Search term/Title is mandatory
     if(title && title?.trim()?.length) {
       const params: MovieQueryParams = {
-        s: title,
+        s: title?.trim(),
         y: year,
         page,
         type
