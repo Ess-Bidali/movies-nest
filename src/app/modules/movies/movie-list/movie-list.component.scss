@@ -6,6 +6,15 @@
   padding: 20px 0;
 }
 
+.scroll-btn {
+  display: flex;
+  place-content: center center;
+  margin: 20px;
+  position: fixed;
+  right: 2%;
+  bottom: 5%;
+}
+
 .grey-txt {
   margin-top: -10px;
   display: flex;

@@ -15,6 +15,13 @@
         </div>
       </div> -->
 
+    <div *ngIf="moviesQuery.selectCount() | async as count" class="scroll-btn">
+      <button *ngIf="count > 10" mat-fab color="primary" matTooltip="Scroll to top"
+        (click)="viewportScroller.scrollToPosition([0, 0])">
+        <mat-icon>arrow_drop_up</mat-icon>
+      </button>
+    </div>
+
       <!-- List items -->
       <div *ngFor="let movie of moviesFetched; trackBy: trackMovieRefrence"
           class="movie-card">
@@ -37,13 +44,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div *ngIf="moviesQuery.selectCount() | async as count" style="display: flex; place-content: center center; margin: 20px">
-      <button *ngIf="count > 10" mat-mini-fab color="primary" matTooltip="Scroll to top"
-        (click)="viewportScroller.scrollToPosition([0, 0])">
-        <mat-icon>arrow_drop_up</mat-icon>
-      </button>
     </div>
   </ng-container>
 
