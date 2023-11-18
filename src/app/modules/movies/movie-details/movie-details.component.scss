@@ -11,6 +11,19 @@
   }
 }
 
+.scroll-btn {
+  display: flex;
+  place-content: center center;
+  margin: 20px;
+  position: fixed;
+  right: 2%;
+  bottom: 5%;
+
+  @media only screen and (min-width: 900px) {
+    display: none;
+  }
+}
+
 .movie-details {
   display: flex;
   flex-direction: row;
@@ -31,6 +44,10 @@ img.movie-poster {
   flex-direction: column;
   place-content: center;
   max-width: 30%;
+
+  @media only screen and (max-width: 600px) {
+    max-width: 90%;
+  }
 }
 
 
@@ -42,6 +59,7 @@ img.movie-poster {
 
 .summary {
   text-wrap: wrap;
+  max-width: 90%;
 }
 
 .pg-text {

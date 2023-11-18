@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DetailedMovie, Movie } from 'src/app/state/movies/movie.model';
@@ -15,7 +16,10 @@ export class MovieDetailsComponent {
 
   subscriptions = new Subscription();
 
-  constructor(public moviesQuery: MoviesQuery) {
+  constructor(
+    public moviesQuery: MoviesQuery,
+    public viewportScroller: ViewportScroller
+  ) {
     const activeSub = this.moviesQuery.selectActive((activeMovie) => {
       this.movie = activeMovie as DetailedMovie;
     }).subscribe();

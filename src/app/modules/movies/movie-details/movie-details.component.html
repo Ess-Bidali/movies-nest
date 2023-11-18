@@ -4,6 +4,13 @@
     CLOSE
   </button>
 
+  <div *ngIf="moviesQuery.selectCount() | async as count" class="scroll-btn">
+    <button *ngIf="count > 8" mat-fab color="primary" matTooltip="Scroll to top"
+      (click)="viewportScroller.scrollToPosition([0, 0])">
+      <mat-icon>arrow_drop_up</mat-icon>
+    </button>
+  </div>
+
   <ng-container>
     <div class="movie-details">
       <img class="movie-poster" [src]="movie?.Poster" onerror="this.src = 'assets/images/placeholder.jpeg'"/>
