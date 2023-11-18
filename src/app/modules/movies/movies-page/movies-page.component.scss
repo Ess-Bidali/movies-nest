@@ -1,7 +1,15 @@
+.toolbar-info {
+  margin: 0 auto;
+  display: flex;
+  place-content: center;
+  align-items: center;
+}
+
 .logo {
-  max-width: 50px;
+  max-width: 40px;
   object-fit: cover;
   border-radius: 8px;
+  margin-right: 10px;
 }
 
 .spacer {
@@ -9,14 +17,31 @@
 }
 
 .search-form {
-  margin-left: 20px;
-  flex-grow: 1;
-  flex-direction: row;
   display: flex;
-  column-gap: 10px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  place-content: center flex-end;
+  align-items: center;
+  margin-left: 10px;
 
   .compact-field {
-    margin-bottom: -25px;
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+
+  .title-field {
+    flex-grow: 3;
+  }
+
+  .other-field {
+    flex-grow: 1;
+  }
+
+  .search-btn {
+    height: 50px;
+    background: white;
+    color: black;
+    margin-top: -10px;
     margin-right: 10px;
   }
 }

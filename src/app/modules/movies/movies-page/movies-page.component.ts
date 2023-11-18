@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError, of, take } from 'rxjs';
+import { Subscription, catchError, debounceTime, of, take } from 'rxjs';
+import { MovieQueryParams } from 'src/app/state/movies/movie.model';
 import { MoviesQuery } from 'src/app/state/movies/movies.query';
 import { MoviesService } from 'src/app/state/movies/movies.service';
 
@@ -14,6 +15,8 @@ import { MoviesService } from 'src/app/state/movies/movies.service';
 export class MoviesPageComponent {
   searchControl = new FormControl<string>('');
   filtersForm: FormGroup;
+  firstQueryMade = false;
+  subscriptions = new Subscription();
 
   constructor(
     public moviesQuery: MoviesQuery,
@@ -26,15 +29,30 @@ export class MoviesPageComponent {
       type: '',
       year: ''
     });
+
+    const formSub = this.filtersForm.valueChanges
+      .pipe(debounceTime(200))
+      .subscribe((val) => {
+        this.applyFilter(val);
+      });
+
+    this.subscriptions.add(formSub);
   }
 
-  applyFilter() {
-    const { title, type, year } = this.filtersForm.value();
-    const searchTerm = title || type || year;
+  applyFilter(formValue = this.filtersForm.value, page = 1) {
+    const { title, type, year } = formValue;
 
-    // At least one has to have a value
-    if(searchTerm && searchTerm?.trim()?.length) {
-      this.moviesService.applySearchTermFilter(searchTerm)
+    // Search term/Title is mandatory
+    if(title && title?.trim()?.length) {
+      const params: MovieQueryParams = {
+        s: title,
+        y: year,
+        page,
+        type
+      }
+      this.firstQueryMade = true;
+
+      const movieQuerySub = this.moviesService.applyFilter(params)
         .pipe(
           take(1),
           catchError((err) => {
@@ -44,13 +62,15 @@ export class MoviesPageComponent {
           })
         )
         .subscribe();
+
+      this.subscriptions.add(movieQuerySub);
     } else {
       this.moviesService.resetStore();
     }
   }
 
   movePageBy(numOfPages: number) {
-    this.moviesService.movePageBy(numOfPages).pipe(
+    const pageChangeSub = this.moviesService.movePageBy(numOfPages).pipe(
       take(1),
       catchError((err) => {
         this.showErrorMessage(err);
@@ -58,6 +78,8 @@ export class MoviesPageComponent {
       })
     )
     .subscribe();
+
+    this.subscriptions.add(pageChangeSub);
   }
 
   setYear(value: any, datepicker: MatDatepicker<any>) {
@@ -68,9 +90,13 @@ export class MoviesPageComponent {
   }
 
   showErrorMessage(err: Error) {
-    this._snackBar.open('ERROR: ' + err.message, 'Close', {
+    this._snackBar.open(err.message, 'Close', {
       verticalPosition: 'top',
       duration: 3000
     });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

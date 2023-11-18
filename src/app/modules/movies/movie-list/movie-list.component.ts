@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, of, take } from 'rxjs';
@@ -14,7 +15,8 @@ export class MovieListComponent {
 
 
   constructor(
-    public moviesQuery: MoviesQuery
+    public moviesQuery: MoviesQuery,
+    public viewportScroller: ViewportScroller
   ) {
   }
 

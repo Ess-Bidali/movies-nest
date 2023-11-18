@@ -19,5 +19,7 @@ export interface MovieQueryParams {
   /** Page to be fetched */
   page: number;
   /** Record type to be fetched */
-  recordType?: 'series' | 'movie';
+  type?: 'series' | 'movie';
+  /** Year to restrict the results to */
+  y?: string;
 }

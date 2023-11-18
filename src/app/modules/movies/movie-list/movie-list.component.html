@@ -38,6 +38,13 @@
         </div>
       </div>
     </div>
+
+    <div *ngIf="moviesQuery.selectCount() | async as count" style="display: flex; place-content: center center; margin: 20px">
+      <button *ngIf="count > 10" mat-mini-fab color="primary" matTooltip="Scroll to top"
+        (click)="viewportScroller.scrollToPosition([0, 0])">
+        <mat-icon>arrow_drop_up</mat-icon>
+      </button>
+    </div>
   </ng-container>
 
   <ng-template #errorBlock>
@@ -50,7 +57,7 @@
   <ng-template #noRecords>
     <div class="list-info-sect">
       <mat-icon class="error-icon">warning</mat-icon>
-      <h2 class="subtitle-data">No records were found matching the specified filter!</h2>
+      <h2 class="subtitle-data">No records were found matching the specified filter</h2>
     </div>
   </ng-template>
 </ng-container>

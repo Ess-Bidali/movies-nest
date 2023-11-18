@@ -15,27 +15,11 @@ export class MoviesService {
   constructor(protected store: MoviesStore) {
   }
 
-  get() {
-    // this.store.set(testData);
-  }
-
   movePageBy(numOfPages: number) {
     const nextPage = this.latestParams.page + numOfPages;
     return this.applyFilter({
       ...this.latestParams,
       page: nextPage
-    })
-  }
-
-  /**
-   * Fetch records after a new search term has been submitted
-   * @param searchTerm New search term to be applied
-   */
-  applySearchTermFilter(searchTerm: string) {
-    return this.applyFilter({
-      ...this.latestParams,
-      s: searchTerm,
-      page: 1
     })
   }
 
@@ -116,11 +100,13 @@ export class MoviesService {
     if(typeof error === 'string') {
       switch(error?.toLowerCase()) {
         case 'too many results.':
-          this.store.setError({ message: error});
+          this.store.setError({ message: error + ' Keep typing to refine'});
           break;
         case 'movie not found!':
+        case 'series not found!':
           // Ignore errors
           console.warn(error);
+          this.store.setError(null);
           break;
 
         default:
@@ -139,7 +125,7 @@ export class MoviesService {
    * Reset the store to the initial value
    */
   resetStore() {
-    this.store.reset();
+    this.store.set([]);
   }
 
   /**
