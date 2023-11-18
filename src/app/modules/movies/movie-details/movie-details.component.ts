@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DetailedMovie, Movie } from 'src/app/state/movies/movie.model';
 import { MoviesQuery } from 'src/app/state/movies/movies.query';
@@ -9,6 +9,8 @@ import { MoviesQuery } from 'src/app/state/movies/movies.query';
   styleUrls: ['./movie-details.component.scss']
 })
 export class MovieDetailsComponent {
+  @Output() close = new EventEmitter();
+
   movie: DetailedMovie | undefined;
 
   subscriptions = new Subscription();

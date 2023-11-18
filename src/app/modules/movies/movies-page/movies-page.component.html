@@ -8,7 +8,7 @@
 
   <mat-sidenav-container>
     <mat-sidenav #singleRecordPanel position="end" (closed)="moviesService.toggleActive('', false)">
-      <app-movie-details></app-movie-details>
+      <app-movie-details (close)="singleRecordPanel.close()"></app-movie-details>
     </mat-sidenav>
 
     <section>
