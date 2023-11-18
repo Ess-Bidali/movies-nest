@@ -46,6 +46,15 @@
   }
 }
 
+.current-count {
+  margin-top: -10px;
+  margin-left: 20px;
+  margin-bottom: -15px;
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
 .full-width {
   min-width: 100%;
 }
