@@ -6,7 +6,7 @@ import { MovieEndpointResponse, MovieQueryParams } from './movie.model';
 
 @Injectable({ providedIn: 'root' })
 export class MoviesService {
-  baseUrl = 'http://www.omdbapi.com/';
+  baseUrl = 'https://www.omdbapi.com/';
   latestParams: MovieQueryParams = {
     s: '',
     page: 1
