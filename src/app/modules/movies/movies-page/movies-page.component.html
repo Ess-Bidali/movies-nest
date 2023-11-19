@@ -11,7 +11,7 @@
       <app-movie-details (close)="singleRecordPanel.close()"></app-movie-details>
     </mat-sidenav>
 
-    <section>
+    <section class="bg-black">
       <form class="search-form" [formGroup]="filtersForm" (submit)="applyFilter();">
         <mat-form-field class="compact-field title-field" appearance="outline">
           <mat-icon matPrefix>short_text</mat-icon>
