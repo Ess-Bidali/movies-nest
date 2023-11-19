@@ -44,28 +44,43 @@ export class MoviesService {
 
     return from(this._performFetch(params))
       .pipe(
-        map((result) => {
-          const data = result ?? {};
-          // Only update params reference after a successful call
-          this.latestParams = params;
-
-          this.store.setLoading(false);
-
-          this.handlePositiveResult(data, params.page);
-
-          this.setPaginationData(data, params.page);
-
-          // Check for errors
-          if(data.Error) {
-            this.handleError(data.Error, params);
-          } else {
-            this.store.setError(null);
-          }
-        })
-      )
+        map((result) => this.handleResult(result, params))
+      );
   }
 
-  handlePositiveResult(data: MovieEndpointResponse, page: number) {
+  /**
+   * Handle API result
+   *
+   * @param result response
+   * @param params
+   */
+  handleResult(result: MovieEndpointResponse, params: MovieQueryParams) {
+    const data = result ?? {};
+
+    this.latestParams = params;
+
+    this.store.setLoading(false);
+
+    this.updateStore(data, params.page);
+
+    this.setPaginationData(data, params.page);
+
+    // Check for errors
+    if(data.Error) {
+      this.handleError(data.Error, params);
+    } else {
+      this.store.setError(null);
+    }
+  }
+
+  /**
+   * Set store data when a response is received from the API
+   *
+   * @param data Response received from the API containing the new records to be displayed
+   * @param page The latest fetched page used to determine whether to append the next page
+   * to the store or replace current store records with the response data
+   */
+  updateStore(data: MovieEndpointResponse, page: number) {
     if(data?.Search) {
       // Update records list
       if(page > 1) {
@@ -73,6 +88,8 @@ export class MoviesService {
       } else {
         this.store.set(data?.Search);
       }
+    } else {
+      this.store.set([]);
     }
   }
 
@@ -121,6 +138,7 @@ export class MoviesService {
 
         default:
           // Alert user
+          this.store.setError(error);
           throw new Error(error);
       }
     } else {

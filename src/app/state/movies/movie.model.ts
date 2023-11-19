@@ -31,8 +31,8 @@ export interface DetailedMovie extends Movie {
 }
 
 export interface MovieEndpointResponse {
-  Search: Movie[];
-  Error: string;
+  Search?: Movie[];
+  Error?: string;
   Response: 'True' | 'False';
   totalResults: string;
 }
